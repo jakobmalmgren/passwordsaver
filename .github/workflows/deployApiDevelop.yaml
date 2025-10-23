@@ -22,9 +22,10 @@ jobs:
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
       - name: build docker image
-        run: docker build -t jakobmalmgren/api-image .
+        run: docker build -t jakobmalmgren/api-image -f backend/Dockerfile backend/
+        #kolla de sen..
 
       - name: push image to docker hub
-        run: docker push jakobmalmgren/API-image
+        run: docker push jakobmalmgren/api-image
 
       # - name: deploy to Render cloud
