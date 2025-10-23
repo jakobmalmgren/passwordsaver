@@ -22,7 +22,7 @@ jobs:
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
       - name: build docker image
-        run: docker build -t jakobmalmgren/API-image
+        run: docker build -t jakobmalmgren/API-image .
 
       - name: push image to docker hub
         run: docker push jakobmalmgren/API-image
