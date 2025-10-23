@@ -1,0 +1,30 @@
+name: deploy API
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: log into dockerhub
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_TOKEN}}
+
+      - name: build docker image
+        run: docker build -t jakobmalmgren/API-image
+
+      - name: push image to docker hub
+        run: docker push jakobmalmgren/API-image
+
+      # - name: deploy to Render cloud
