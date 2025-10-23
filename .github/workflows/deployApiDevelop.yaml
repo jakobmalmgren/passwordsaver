@@ -28,4 +28,7 @@ jobs:
       - name: push image to docker hub
         run: docker push jakobmalmgren/api-image
 
-      # - name: deploy to Render cloud
+      - name: deploy to Render cloud
+        env:
+          deploy_url: ${{secrets.RENDER_DEPLOY_URL}}}
+        run: curl "$deploy_url"
