@@ -1,23 +1,8 @@
 name: deploy API
-# on:
-#   push:
-#     branches:
-#       - dev
-#   pull_request:
-#     branches:
-#       - dev
-
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "backend/**"
   pull_request:
     branches:
       - dev
-    paths:
-      - "backend/**"
 
 jobs:
   build-and-deploy:
