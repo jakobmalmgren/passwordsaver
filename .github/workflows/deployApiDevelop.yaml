@@ -1,31 +1,67 @@
+# name: deploy API
+# on:
+#   push:
+#     branches:
+#       - dev
+#   pull_request:
+#     branches:
+#       - dev
+
+# jobs:
+#   build-and-deploy:
+#     if: github.head_ref == 'devbackend'
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: log into dockerhub
+#         uses: docker/login-action@v3
+#         with:
+#           username: ${{secrets.DOCKERHUB_USERNAME}}
+#           password: ${{secrets.DOCKERHUB_TOKEN}}
+#       #kolla de sen..
+#       - name: build docker image
+#         run: docker build -t jakobmalmgren/api-image -f backend/Dockerfile backend/
+
+#       - name: push image to docker hub
+#         run: docker push jakobmalmgren/api-image
+
+#       - name: deploy to Render cloud
+#         env:
+#           deploy_url: ${{secrets.RENDER_DEPLOY_URL}}
+#         run: curl --fail "$deploy_url"
+
 name: deploy API
+
 on:
   pull_request:
     branches:
-      - dev
+      - dev # körs när någon gör PR mot dev
 
 jobs:
   build-and-deploy:
-    if: github.head_ref == 'devbackend'
     runs-on: ubuntu-latest
+    if: github.event.pull_request.head.ref == 'devbackend'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: log into dockerhub
+      - name: Log into Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{secrets.DOCKERHUB_USERNAME}}
-          password: ${{secrets.DOCKERHUB_TOKEN}}
-      #kolla de sen..
-      - name: build docker image
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker image
         run: docker build -t jakobmalmgren/api-image -f backend/Dockerfile backend/
 
-      - name: push image to docker hub
+      - name: Push image to Docker Hub
         run: docker push jakobmalmgren/api-image
 
-      - name: deploy to Render cloud
+      - name: Deploy to Render cloud
         env:
-          deploy_url: ${{secrets.RENDER_DEPLOY_URL}}
+          deploy_url: ${{ secrets.RENDER_DEPLOY_URL }}
         run: curl --fail "$deploy_url"
