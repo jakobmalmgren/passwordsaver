@@ -1,35 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+// import { getTodos } from "../api/api.mjs";
+import AddTodo from "./components/addtodo/addtodo.jsx";
+import TodoItem from "./components/todoItems/todoItems.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  // const todoComponents = getTodos.map((todo) => {
+  //   return <TodoItem task={todo.title} done={todo.done} key={todo.id} />;
+  // });
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <section className="container">
+      <h2>mina todos:</h2>
+      {/* <section className="todo-section">{todoComponents}</section> */}
+      <section className="todo-section"></section>
+      <AddTodo></AddTodo>
+    </section>
+  );
 }
 
-export default App
+export default App;
