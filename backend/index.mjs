@@ -1,11 +1,19 @@
-import express from "express";
+import express, { json } from "express";
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+import cors from "cors";
+import "dotenv/config";
 
-app.get("/", (req, res) => {
-  res.send("hej från API NYYYYYYYYYY");
-});
+import todoRouter from "./routes/todo.mjs";
 
-app.listen(PORT, () => {
-  console.log(`porten körs på: http://localhost:${PORT}`);
+import { initDb } from "./service/db.mjs";
+
+app.use(json());
+app.use(cors());
+
+app.use("/api/todo", todoRouter);
+
+app.listen(PORT, async () => {
+  await initDb();
+  console.log("Server started");
 });
