@@ -9,7 +9,7 @@ function App() {
   // });
   return (
     <section className="container">
-      <h2>mina todos:</h2>
+      <h2>mina todos!:</h2>
       {/* <section className="todo-section">{todoComponents}</section> */}
       <section className="todo-section"></section>
       <AddTodo></AddTodo>
